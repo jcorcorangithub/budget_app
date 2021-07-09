@@ -2,10 +2,10 @@ const FILES_TO_CACHE = [
     '/',
     '/index.html',
     '/manifest.webmanifest',
-    '/assets/css/styles.css',
-    '/assets/js/index.js',
-    '/assets/icons/icon-192x192.png',
-    '/assets/icons/icon-512x512.png'
+    '/styles.css',
+    '/index.js',
+    '/icons/icon-192x192.png',
+    '/icons/icon-512x512.png'
 ];
 
 const STATIC_CACHE = "static-cache";
@@ -21,7 +21,7 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-    const currentCaches = [CACHE_NAME, DATA_CACHE_NAME];
+    const currentCaches = [STATIC_CACHE, RUNTIME_CACHE];
     event.waitUntil(
       caches
         .keys()
@@ -52,7 +52,7 @@ self.addEventListener("activate", event => {
 
     if (event.request.url.includes("/api/images")) {
         event.respondWith(
-          caches.open(DATA_CACHE_NAME).then(cache => {
+          caches.open(RUNTIME_CACHE).then(cache => {
             return fetch(event.request)
               .then(response => {
                 cache.put(event.request, response.clone());
@@ -70,7 +70,7 @@ self.addEventListener("activate", event => {
             return cachedResponse;
           }
 
-          return caches.open(DATA_CACHE_NAME).then(cache => {
+          return caches.open(RUNTIME_CACHE).then(cache => {
             return fetch(event.request).then(response => {
               return cache.put(event.request, response.clone()).then(() => {
                 return response;
