@@ -1,12 +1,12 @@
 const FILES_TO_CACHE = [
     '/',
-    '/index.html',
-    '/manifest.webmanifest',
-    '/styles.css',
-    '/index.js',
+    'index.html',
+    'manifest.webmanifest',
+    'styles.css',
+    'index.js',
     'db.js',
-    '/icons/icon-192x192.png',
-    '/icons/icon-512x512.png'
+    'icons/icon-192x192.png',
+    'icons/icon-512x512.png'
 ];
 
 const STATIC_CACHE = "static-cache";
