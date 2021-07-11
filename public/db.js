@@ -6,7 +6,7 @@ request.onupgradeneeded = function(event) {
     const store = await db.createObjectStore("store", { autoIncrement:true });
   };
 
-request.onsuccess = function(event) {
+request.onsuccess = event => {
     db = event.target.result;
 
     if (navigator.onLine) {
@@ -14,3 +14,17 @@ request.onsuccess = function(event) {
     }
 };
 
+request.onerror = event => {
+    console.error(event);
+};
+
+function saveRecord(record) {
+    const transaction = db.transaction(["store"], "readwrite");
+    const store = transaction.objectStore("store");
+  
+    store.add(record);
+}
+
+function checkDatabase() {
+    
+}
